@@ -1,28 +1,24 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import List from "./List";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
+const App = ({ items }) => {
+  function handleSubmit(e) {
+    const d = new FormData(e.target);
+    items.push({ id: items.length, value: d.get("value") });
+    e.target.reset();
+    e.preventDefault();
   }
-}
+
+  return (
+    <div className="App">
+      <h1>OMG A LIST</h1>
+      <form onSubmit={handleSubmit}>
+        <input type="text" name="value" />
+        <button>add</button>
+      </form>
+      <List items={items} />
+    </div>
+  );
+};
 
 export default App;
